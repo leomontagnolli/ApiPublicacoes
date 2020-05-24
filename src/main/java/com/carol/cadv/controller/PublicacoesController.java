@@ -33,7 +33,6 @@ public class PublicacoesController {
 		List<Publicacao> publicacao = publicacaoRepository.findAll();
 		return publicacao;
 	}
-	
 	@PostMapping
 	@Transactional
 	@CacheEvict(value = "allPublicacoes", allEntries = true)
@@ -43,8 +42,6 @@ public class PublicacoesController {
 		URI uri = uriBuilder.path("/publicacoes/{id}").buildAndExpand(publicacao.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(publicacao);
-		
-		
 		
 	}
 	
