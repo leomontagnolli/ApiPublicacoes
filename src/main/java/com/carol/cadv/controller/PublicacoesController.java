@@ -37,6 +37,16 @@ public class PublicacoesController {
 		List<Publicacao> publicacao = publicacaoRepository.findAll();
 		return publicacao;
 	}
+	
+	@GetMapping("{id}")
+	public Publicacao detalhar(@PathVariable Long id) {
+		Publicacao publicao = publicacaoRepository.getOne(id);
+		
+		return publicao;
+		
+	}
+	
+	
 	@PostMapping
 	@Transactional
 	@CacheEvict(value = "allPublicacoes", allEntries = true)
@@ -49,6 +59,7 @@ public class PublicacoesController {
 	
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "allPublicacoes", allEntries = true)
 	public ResponseEntity<Publicacao> atualizar (@PathVariable Long id, @RequestBody Publicacao publiNova){
 		Optional<Publicacao> publicacao = publicacaoRepository.findById(id);
 		
@@ -66,6 +77,8 @@ public class PublicacoesController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@Transactional
+	@CacheEvict(value = "allPublicacoes", allEntries = true)
 	public ResponseEntity<?> deletar (@PathVariable Long id) {
 		
 		Optional<Publicacao> optional = publicacaoRepository.findById(id);
