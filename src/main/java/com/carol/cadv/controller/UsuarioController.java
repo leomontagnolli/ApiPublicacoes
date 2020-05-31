@@ -1,6 +1,7 @@
 package com.carol.cadv.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -35,5 +36,13 @@ public class UsuarioController {
 		
 	}
 	
+	
+	@GetMapping
+	public List<Usuario> listar() {
+		List<Usuario> usuarios = usuarioRepository.findAll();
+		
+		return usuarios;
+		
+	}
 
 }
