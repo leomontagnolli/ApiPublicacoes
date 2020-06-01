@@ -24,8 +24,6 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	
-	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario, UriComponentsBuilder uriBuilder) {
@@ -33,16 +31,11 @@ public class UsuarioController {
 		
 		URI uri = uriBuilder.path("/usuario/{id}").buildAndExpand(usuario.getId()).toUri();
 		return ResponseEntity.created(uri).body(usuario);
-		
 	}
-	
-	
 	@GetMapping
 	public List<Usuario> listar() {
-		List<Usuario> usuarios = usuarioRepository.findAll();
-		
-		return usuarios;
-		
+		List<Usuario> usuarios = usuarioRepository.findAll();	
+		return usuarios;	
 	}
 
 }
