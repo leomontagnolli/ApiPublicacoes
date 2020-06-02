@@ -28,6 +28,27 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	
+	@GetMapping
+	public List<Usuario> listar() {
+		List<Usuario> usuarios = usuarioRepository.findAll();	
+		return usuarios;	
+	}
+	
+	@GetMapping("{id}")
+	public ResponseEntity<Usuario> usuarioDetalhar (@PathVariable Long id){
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		
+		if(usuario.isPresent()) {
+			return ResponseEntity.ok(usuario.get());
+		}
+		
+		return ResponseEntity.badRequest().build();
+	}
+	
+		
+	
+	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario, UriComponentsBuilder uriBuilder) {
@@ -36,12 +57,7 @@ public class UsuarioController {
 		URI uri = uriBuilder.path("/usuario/{id}").buildAndExpand(usuario.getId()).toUri();
 		return ResponseEntity.created(uri).body(usuario);
 	}
-	@GetMapping
-	public List<Usuario> listar() {
-		List<Usuario> usuarios = usuarioRepository.findAll();	
-		return usuarios;	
-	}
-	
+
 	@PutMapping("{id}")
 	@Transactional
 	public ResponseEntity<Usuario> atualizar (@PathVariable Long id, @RequestBody UsuarioForm usuario) {
