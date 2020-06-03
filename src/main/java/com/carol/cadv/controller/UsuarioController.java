@@ -34,7 +34,6 @@ public class UsuarioController {
 		List<Usuario> usuarios = usuarioRepository.findAll();	
 		return usuarios;	
 	}
-	
 	@GetMapping("{id}")
 	public ResponseEntity<Usuario> usuarioDetalhar (@PathVariable Long id){
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
@@ -45,9 +44,6 @@ public class UsuarioController {
 		
 		return ResponseEntity.badRequest().build();
 	}
-	
-		
-	
 	
 	@PostMapping
 	@Transactional
